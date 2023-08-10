@@ -1,10 +1,14 @@
 import { Main } from "@/src/layouts/Main";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import { BsFillTrash3Fill } from "react-icons/bs";
 import { useRouter } from "next/router";
+import { dataHelper } from "@/utils/helper";
 
 export default function CreatePage() {
   const router = useRouter();
+
+  const { id } = router.query;
+
+  const currentData = dataHelper.find((data) => data.id.toString() === id);
   return (
     <Main>
       <div className="py-5 px-20 min-w-[80vw] min-h-[100vh] text-white">
@@ -33,20 +37,18 @@ export default function CreatePage() {
         <div className="flex gap-x-4 items-center">
           <div className="p-5 border border-lightGray mt-4 rounded-[5px] bg-blueDark/10 w-full">
             <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="mb-2">title</p>
-                <input
-                  className="p-2 border border-lightGray rounded-[5px] bg-transparent w-full"
-                  type="text"
-                />
-              </div>
-              <div>
-                <p className="mb-2">title</p>
-                <input
-                  className="p-2 border border-lightGray rounded-[5px] bg-transparent w-full"
-                  type="text"
-                />
-              </div>
+              {currentData?.fields.map(
+                (data, idx) =>
+                  data.value2 && (
+                    <div key={idx}>
+                      <p className="mb-2">{data.value2}</p>
+                      <input
+                        className="p-2 border border-lightGray rounded-[5px] bg-transparent w-full"
+                        type="text"
+                      />
+                    </div>
+                  )
+              )}
             </div>
           </div>
         </div>

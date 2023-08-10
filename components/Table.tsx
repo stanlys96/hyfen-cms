@@ -6,15 +6,15 @@ import TableHead from "./atoms/TableHead";
 import Tbody from "./atoms/Tbody";
 import TableBody from "./atoms/TableBody";
 import { useState, useEffect } from "react";
-import useSWR from "swr";
-import { fetcher } from "@/utils/axios";
 
-export const TableContent = () => {
+interface Props {
+  data: any;
+  currentData: any;
+}
+
+export const TableContent = ({ data, currentData }: Props) => {
   const router = useRouter();
   const { id } = router.query;
-
-  const { data, error, isLoading } = useSWR("/categories", fetcher);
-  console.log(data, "<<<<");
 
   const [domLoaded, setDomLoaded] = useState(false);
 
@@ -23,34 +23,39 @@ export const TableContent = () => {
   }, []);
 
   return (
-    domLoaded && (
+    domLoaded &&
+    data && (
       <Table className="overflow-x-scroll max-w-[80vw]">
         <Theading>
           <tr>
-            <TableHead className="font-light py-8">Application No.</TableHead>
-            <TableHead className="font-light py-8">Application Date</TableHead>
-            <TableHead className="font-light py-8">Name</TableHead>
-            <TableHead className="font-light py-8">DoB</TableHead>
-            <TableHead className="font-light py-8">
-              Phone Number / Email
-            </TableHead>
-            <TableHead className="font-light py-8">Details</TableHead>
+            {currentData?.fields.map((field: any, idx: any) => (
+              <TableHead key={idx} className="font-light py-8">
+                {field.name}
+              </TableHead>
+            ))}
           </tr>
         </Theading>
         <Tbody>
-          <tr
-            onClick={() => {
-              router.push(`/content/${id}`);
-            }}
-            className="table-row cursor-pointer bg-blackDark text-center hover:bg-appShade200/50 transition-all duration-300 border-b border-app-shade"
-          >
-            <TableBody>5</TableBody>
-            <TableBody>WALAO</TableBody>
-            <TableBody>WALAO</TableBody>
-            <TableBody>WALAO</TableBody>
-            <TableBody>WALAO</TableBody>
-            <TableBody>WALAOWALAOWALAOWALAOWALASDASDASD</TableBody>
-          </tr>
+          {data.data.data.map((theData: any, idx: any) => (
+            <tr
+              onClick={() => {
+                router.push(`/content/${id}`);
+              }}
+              className="table-row cursor-pointer bg-blackDark text-center hover:bg-appShade200/50 transition-all duration-300 border-b border-app-shade"
+            >
+              {currentData?.fields.map((field: any, idx: any) => (
+                <TableBody>
+                  {field.value2
+                    ? theData[field.value][field.value2].length > 50
+                      ? theData[field.value][field.value2].slice(0, 50) + "..."
+                      : theData[field.value][field.value2]
+                    : theData[field.value].length > 50
+                    ? theData[field.value].slice(0, 50) + "..."
+                    : theData[field.value]}
+                </TableBody>
+              ))}
+            </tr>
+          ))}
         </Tbody>
       </Table>
     )
