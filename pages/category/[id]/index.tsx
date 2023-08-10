@@ -1,10 +1,11 @@
-import { TableKYC } from "@/components/Table";
+import { TableContent } from "@/components/Table";
 import { Main } from "@/src/layouts/Main";
 import { useRouter } from "next/router";
 
 export default function CategoryPage() {
   const router = useRouter();
   const { id } = router.query;
+
   return (
     <Main>
       <div className="py-5 px-20 min-w-[80vw] min-h-[100vh] text-white">
@@ -25,7 +26,7 @@ export default function CategoryPage() {
           </div>
         </div>
         <div className="mt-5">
-          <TableKYC />
+          <TableContent />
         </div>
       </div>
     </Main>

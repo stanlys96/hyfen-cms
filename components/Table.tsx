@@ -1,5 +1,4 @@
 import dayjs from "dayjs";
-// import { TableBody, TableHead, TableNew, Tbody, Theading } from "./atoms";
 import { useRouter } from "next/router";
 import Table from "./atoms/Table";
 import Theading from "./atoms/Theading";
@@ -7,15 +6,16 @@ import TableHead from "./atoms/TableHead";
 import Tbody from "./atoms/Tbody";
 import TableBody from "./atoms/TableBody";
 import { useState, useEffect } from "react";
+import useSWR from "swr";
+import { fetcher } from "@/utils/axios";
 
-type Props = {
-  translation: any;
-  finalList: any;
-};
-
-export const TableKYC = () => {
+export const TableContent = () => {
   const router = useRouter();
   const { id } = router.query;
+
+  const { data, error, isLoading } = useSWR("/categories", fetcher);
+  console.log(data, "<<<<");
+
   const [domLoaded, setDomLoaded] = useState(false);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export const TableKYC = () => {
 
   return (
     domLoaded && (
-      <Table className="overflow-scroll max-w-[80vw]">
+      <Table className="overflow-x-scroll max-w-[80vw]">
         <Theading>
           <tr>
             <TableHead className="font-light py-8">Application No.</TableHead>
@@ -38,7 +38,7 @@ export const TableKYC = () => {
           </tr>
         </Theading>
         <Tbody>
-          <a
+          <tr
             onClick={() => {
               router.push(`/content/${id}`);
             }}
@@ -49,11 +49,8 @@ export const TableKYC = () => {
             <TableBody>WALAO</TableBody>
             <TableBody>WALAO</TableBody>
             <TableBody>WALAO</TableBody>
-            <TableBody>
-              WALAOWALAOWALAOWALAOWALAOWALAOWALAOWALAOWALAOWALAO WALAO WALAO
-              WALAO
-            </TableBody>
-          </a>
+            <TableBody>WALAOWALAOWALAOWALAOWALASDASDASD</TableBody>
+          </tr>
         </Tbody>
       </Table>
     )

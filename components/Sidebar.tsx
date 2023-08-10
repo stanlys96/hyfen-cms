@@ -20,6 +20,7 @@ export default function Sidebar() {
         <div className="p-5 flex flex-col gap-y-1">
           {contentData.map((content, idx) => (
             <div
+              key={content.id}
               onClick={() => {
                 router.push(`/category/${content.id}`);
               }}

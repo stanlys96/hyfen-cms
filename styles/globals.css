@@ -2,22 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-.table-container {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
-}
-.table-container::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
+html {
+  scrollbar-width: none;
 }
 
-html {
-  /* overflow: scroll;
-  overflow-x: hidden; */
+.table-container::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
 }
-::-webkit-scrollbar-corner {
-  width: 0;
-  /* Remove scrollbar space */
-  /* background: transparent;  */
+
+table {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+  overflow: hidden;
+}
+table::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 /* ::-webkit-scrollbar-thumb {
   background: gray;
