@@ -24,8 +24,8 @@ export default function CreatePage() {
               <p>Back</p>
             </div>
             <div>
-              <p className="text-xl font-bold">Axie Infinity</p>
-              <p className="text-gray">API ID: game</p>
+              <p className="text-xl font-bold">{currentData?.name}</p>
+              <p className="text-gray">API ID: {currentData?.name}</p>
             </div>
           </div>
           <div>

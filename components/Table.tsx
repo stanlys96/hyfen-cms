@@ -21,7 +21,7 @@ export const TableContent = ({ data, currentData }: Props) => {
   useEffect(() => {
     setDomLoaded(true);
   }, []);
-
+  console.log(data, "ASDJALSJD");
   return (
     domLoaded &&
     data && (
@@ -39,7 +39,7 @@ export const TableContent = ({ data, currentData }: Props) => {
           {data.data.data.map((theData: any, idx: any) => (
             <tr
               onClick={() => {
-                router.push(`/content/${id}`);
+                router.push(`/content/${id}/${theData.id}`);
               }}
               className="table-row cursor-pointer bg-blackDark text-center hover:bg-appShade200/50 transition-all duration-300 border-b border-app-shade"
             >
